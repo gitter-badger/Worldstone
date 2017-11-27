@@ -15,7 +15,7 @@ matrix:
   include:
     - os: linux
       compiler: gcc
-      addons: &gcc6 {apt: {packages: [g++-6] , sources: [ubuntu-toolchain-r-test]}}
+      addons: &gcc6 {apt: {packages: [g++-6,libsdl2-dev] , sources: [ubuntu-toolchain-r-test]}}
       env: BUILD_TYPE=Coverage COMPILER_VER=6
     - os: linux
       compiler: gcc
