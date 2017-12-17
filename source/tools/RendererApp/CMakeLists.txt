@@ -18,6 +18,7 @@ target_link_libraries(RendererApp
         WS::system
         WS::decoders
         SDL2::SDL2
+        external::bgfx
 )
 
 target_enable_lto(RendererApp optimized)

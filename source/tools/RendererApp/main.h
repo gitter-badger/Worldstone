@@ -1,70 +1,32 @@
 #pragma once
 #include <SDL.h>
+#include <atomic>
 #include <fmt/format.h>
 
 class BaseApp
 {
 private:
-    bool        stopRunning = false;
+    std::atomic_bool stopRunning  = false;
     SDL_Window* mainWindow  = nullptr;
+    int              windowWidth  = 1280;
+    int              windowHeight = 720;
 
-    int init()
-    {
-        stopRunning = false;
+    int  init();
+    bool initAppThread();
 
-        // Setup SDL
-        if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-            fmt::print("Error: {}\n", SDL_GetError());
-            return -1;
-        }
-        // clang-format off
-        mainWindow = SDL_CreateWindow
-        (
-            "Main window",
-            SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-            1280, 720,
-            SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
-        );
-        // clang-format on
-        if (!mainWindow) {
-            fmt::print("Error: {}\n", SDL_GetError());
-            return -1;
-        }
-        return 0;
-    }
+    void shutdown();
+    void shutdownAppThread();
 
-    void shutdown()
-    {
-        SDL_DestroyWindow(mainWindow);
-        mainWindow = nullptr;
-
-        SDL_Quit();
-    }
+    void executeLoopOnce();
 
 protected:
-    virtual void executeOneLoop()
-    {
-
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_QUIT) requireExit();
-        }
-
-        SDL_Delay(10); // Don't burn our CPU
-    }
-
+    virtual void executeAppLoopOnce();
     void requireExit() { stopRunning = true; }
 
 public:
     BaseApp() { init(); }
-    virtual ~BaseApp();
+    virtual ~BaseApp() { shutdown(); }
 
-    void run()
-    {
-        while (!stopRunning)
-        {
-            executeOneLoop();
-        }
-    }
+    void run();
+    void runAppThread();
 };

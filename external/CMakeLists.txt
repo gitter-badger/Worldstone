@@ -47,3 +47,5 @@ option( BX_AMALGAMATED        "Amalgamated bx build for faster compilation"   ON
 option( BGFX_CONFIG_DEBUG     "Enables debug configuration on all builds"     OFF )
 
 add_subdirectory(bgfx.cmake)
+target_set_warnings(bgfx DISABLE ALL)
+add_library(external::bgfx ALIAS bgfx)
