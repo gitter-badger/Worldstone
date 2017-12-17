@@ -80,7 +80,7 @@ int BaseApp::init()
 bool BaseApp::initAppThread()
 {
     if (!bgfx::init()) return false;
-    bgfx::reset(windowWidth, windowHeight, BGFX_RESET_VSYNC);
+    bgfx::reset(uint32_t(windowWidth), uint32_t(windowHeight), BGFX_RESET_VSYNC);
     bgfx::setDebug(BGFX_DEBUG_TEXT);
 
     // Set view 0 clear state.

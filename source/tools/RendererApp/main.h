@@ -6,7 +6,7 @@
 class BaseApp
 {
 private:
-    std::atomic_bool stopRunning  = false;
+    std::atomic_bool stopRunning  = ATOMIC_VAR_INIT(false);
     SDL_Window* mainWindow  = nullptr;
     int              windowWidth  = 1280;
     int              windowHeight = 720;
