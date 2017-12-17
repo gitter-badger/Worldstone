@@ -35,3 +35,15 @@ set_target_properties(fmt storm PROPERTIES FOLDER "external")
 
 set(BUILD_TESTING ${BUILD_TESTING_BCKP} CACHE BOOL "Build tests (default variable for CTest)" FORCE) #Set it back to its past value
 set(BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS_BCKP} CACHE BOOL "Cause all libraries to be built shared unless the library was explicitly added as a static library." FORCE)
+
+option( BGFX_BUILD_TOOLS      "Build bgfx tools."                             OFF )
+option( BGFX_BUILD_EXAMPLES   "Build bgfx examples."                          OFF )
+option( BGFX_INSTALL          "Create installation target."                   OFF )
+option( BGFX_INSTALL_EXAMPLES "Install examples and their runtimes."          OFF )
+option( BGFX_CUSTOM_TARGETS   "Include convenience custom targets."           OFF )
+option( BGFX_USE_OVR          "Build with OVR support."                       OFF )
+option( BGFX_AMALGAMATED      "Amalgamated bgfx build for faster compilation" ON  )
+option( BX_AMALGAMATED        "Amalgamated bx build for faster compilation"   ON  )
+option( BGFX_CONFIG_DEBUG     "Enables debug configuration on all builds"     OFF )
+
+add_subdirectory(bgfx.cmake)
