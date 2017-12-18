@@ -21,6 +21,14 @@ target_link_libraries(RendererApp
         external::bgfx
 )
 
+if( UNIX AND NOT APPLE )
+    find_package(X11 REQUIRED)
+    target_include_directories(RendererApp SYSTEM
+        PRIVATE ${X11_INCLUDE_DIR})
+    target_link_libraries(RendererApp
+        PRIVATE ${X11_LIBRARIES})
+endif()
+
 target_enable_lto(RendererApp optimized)
 
 target_set_warnings(RendererApp
